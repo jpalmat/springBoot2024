@@ -5,30 +5,30 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.spring2025.companies.data.Companies;
-import com.example.spring2025.companies.data.CompaniesRepository;
-import com.example.spring2025.companies.service.CompaniesService;
+import com.example.spring2025.companies.data.Company;
+import com.example.spring2025.companies.data.CompanyRepository;
+import com.example.spring2025.companies.service.CompanyService;
 
 @Service
-public class CompaniesServiceImpl implements CompaniesService {
-    CompaniesRepository companiesRepository;
+public class CompanyServiceImpl implements CompanyService {
+    CompanyRepository companiesRepository;
 
-    public CompaniesServiceImpl(CompaniesRepository companiesRepository) {
+    public CompanyServiceImpl(CompanyRepository companiesRepository) {
         this.companiesRepository = companiesRepository;
     }
 
     @Override
-    public List<Companies> getCompanies() {
+    public List<Company> getCompanies() {
         return companiesRepository.findAll();
     }
 
     @Override
-    public void addCompanies(Companies companies) {
+    public void addCompanies(Company companies) {
         companiesRepository.save(companies);
     }
 
     @Override
-    public Companies getCompaniesById(Long id) {
+    public Company getCompaniesById(Long id) {
         // return companiess.stream().filter(j -> j.getId().equals(id)).findFirst().orElse(null);
         return companiesRepository.findById(id).orElse(null);
     }
@@ -45,16 +45,14 @@ public class CompaniesServiceImpl implements CompaniesService {
     }
 
     @Override
-    public boolean updateCompanies(Long id, Companies companies_updated) {
+    public boolean updateCompanies(Long id, Company companies_updated) {
 
-        Optional<Companies> companiesOptional = companiesRepository.findById(id);
+        Optional<Company> companiesOptional = companiesRepository.findById(id);
         if(companiesOptional.isPresent()) {
-            Companies companies = companiesOptional.get();
-            companies.setTitle(companies_updated.getTitle());
+            Company companies = companiesOptional.get();
+            companies.setName(companies_updated.getName());
             companies.setDescription(companies_updated.getDescription());
-            companies.setLocation(companies_updated.getLocation());
-            companies.setMinSalary(companies_updated.getMinSalary());
-            companies.setMaxSalary(companies_updated.getMaxSalary());
+            companies.setJobs(companies_updated.getJobs());
             companiesRepository.save(companies);
             return true;
         }
