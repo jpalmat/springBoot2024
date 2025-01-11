@@ -1,9 +1,12 @@
 package com.example.spring2025.job.data;
 
+import com.example.spring2025.companies.data.Company;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Job {
@@ -15,6 +18,9 @@ public class Job {
     private String location;
     private String minSalary;
     private String maxSalary;
+
+    @ManyToOne
+    private Company company;
 
 
     public Job() {
@@ -75,5 +81,13 @@ public class Job {
 
     public void setMaxSalary(String maxSalary) {
         this.maxSalary = maxSalary;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
