@@ -2,6 +2,7 @@ package com.example.spring2025.companies.service;
 
 import java.util.List;
 
+
 import com.example.spring2025.companies.data.Company;
 
 public interface CompanyService {
@@ -10,4 +11,6 @@ public interface CompanyService {
     Company getCompaniesById(Long id);
     boolean deleteCompanies(Long id);
     boolean updateCompanies(Long id, Company companies_updated);
+    List<Integer> getCompanyTest(Long id);
+    Integer getNumbermployee();
 }

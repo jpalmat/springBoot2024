@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Company {
@@ -19,6 +20,10 @@ public class Company {
     private Long id;
     private String name;
     private String description;
+    private Integer numberEmployees;
+
+    @Transient
+    private List<String> test;
 
     @JsonIgnore
     @OneToMany(mappedBy = "company")
@@ -70,5 +75,21 @@ public class Company {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<String> getTest() {
+        return test;
+    }
+
+    public void setTest(List<String> test) {
+        this.test = test;
+    }
+
+    public Integer getNumberEmployees() {
+        return numberEmployees;
+    }
+
+    public void setNumberEmployees(Integer numberEmployees) {
+        this.numberEmployees = numberEmployees;
     }
 }

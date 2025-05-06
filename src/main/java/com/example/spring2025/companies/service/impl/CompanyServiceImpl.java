@@ -1,7 +1,9 @@
 package com.example.spring2025.companies.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,20 @@ public class CompanyServiceImpl implements CompanyService {
         this.companiesRepository = companiesRepository;
     }
 
+
+    int count = 0;
     @Override
     public List<Company> getCompanies() {
-        return companiesRepository.findAll();
+        List<Company> list = companiesRepository.findAll();
+
+        list.stream().forEach(c -> {
+            if(c.getId()==3) {
+                c.setTest(Arrays.asList("Jimmyyyyyyyyyyyyy", "test"));
+            } else {
+                c.setTest(Arrays.asList("Jimmy" + ++count, "test"));
+            }
+        });
+        return list;
     }
 
     @Override
@@ -57,6 +70,24 @@ public class CompanyServiceImpl implements CompanyService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Integer> getCompanyTest(Long id) {
+        Company company = companiesRepository.findById(id).orElse(null);
+
+        company.setTest(Arrays.asList("Jimmy", "Mayra"));
+
+        return company.getTest().stream().map(test -> test.length()).collect(Collectors.toList());
+    }
+
+	@Override
+	public Integer getNumbermployee() {
+		List<Company> list = companiesRepository.findAll();
+
+        return list.stream().map(c -> c.getNumberEmployees())
+        .reduce(0, (a, b) -> a + b);
+    
     }
     
 }

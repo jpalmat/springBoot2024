@@ -46,6 +46,16 @@ public class CompanyControler {
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/test")
+    public ResponseEntity<List<Integer>> getCompaniesTestById(@PathVariable Long id) {
+        return new ResponseEntity<>(this.companyService.getCompanyTest(id), HttpStatus.OK);
+    }
+    @GetMapping("/numberEmployee")
+    public ResponseEntity<Integer> getNumbermployee(@PathVariable Long id) {
+        Integer num = this.companyService.getNumbermployee();
+        return new ResponseEntity<>(num, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCompanies(@PathVariable Long id) {
         boolean deleted = this.companyService.deleteCompanies(id);
